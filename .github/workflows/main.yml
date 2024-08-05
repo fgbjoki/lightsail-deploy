@@ -19,7 +19,7 @@ jobs:
           dotnet-version: '8.0.x'
 
       - name: Restore NuGet packages
-        run: dotnet restore .\WeatherApi\WeatherApi.sln
+        run: dotnet restore ./WeatherApi/WeatherApi.sln
 
       - name: Build .NET application
         run: dotnet build .\WeatherApi\WeatherApi.sln --configuration Release --no-restore
