@@ -22,7 +22,7 @@ jobs:
         run: dotnet restore ./WeatherApi/WeatherApi.sln
 
       - name: Build .NET application
-        run: dotnet build .\WeatherApi\WeatherApi.sln --configuration Release --no-restore
+        run: dotnet build ./WeatherApi/WeatherApi.sln --configuration Release --no-restore
         
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
