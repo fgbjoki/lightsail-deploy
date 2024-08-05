@@ -32,7 +32,7 @@ jobs:
         run: |
           IMAGE_TAG=latest
           docker build -t weather-api:$IMAGE_TAG ./src/Weather/
-          aws lightsail push-container-image --region eu-central-1 --service-name container-service-1 -label weather-api -- image weather-api:$IMAGE_TAG
+          aws lightsail push-container-image --region eu-central-1 --service-name container-service-1 --label weather-api --image weather-api:$IMAGE_TAG
         env:
           AWS_REGION: eu-central-1
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
