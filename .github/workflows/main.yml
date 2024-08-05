@@ -31,7 +31,7 @@ jobs:
         id: build-image
         run: |
           IMAGE_TAG=latest
-          docker build -t weather-api:$IMAGE_TAG
+          docker build -t weather-api:$IMAGE_TAG .
           aws lightsail push-container-image --region eu-central-1 --service-name container-service-1 -label weather-api -- image my-webapi:$IMAGE_TAG
         env:
           AWS_REGION: eu-central-1
