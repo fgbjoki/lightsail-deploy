@@ -3,23 +3,23 @@
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 USER app
 WORKDIR /app
-EXPOSE 80
-EXPOSE 443
+EXPOSE 8080
+EXPOSE 8081
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["Weather.csproj", "."]
-RUN dotnet restore "./Weather.csproj"
+COPY ["Services/WebApi/WebApi.csproj", "Services/WebApi/"]
+RUN dotnet restore "./Services/WebApi/WebApi.csproj"
 COPY . .
-WORKDIR "/src/."
-RUN dotnet build "./Weather.csproj" -c $BUILD_CONFIGURATION -o /app/build
+WORKDIR "/src/Services/WebApi"
+RUN dotnet build "./WebApi.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./Weather.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./WebApi.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "Weather.dll"]
+ENTRYPOINT ["dotnet", "WebApi.dll"]
