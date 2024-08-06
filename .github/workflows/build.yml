@@ -90,7 +90,7 @@ jobs:
       - name: Check deployment status
         run: |
           for i in {1..100}; do
-            DEPLOYMENT_STATUS=$(aws lightsail get-container-service-deployments --service-name my-api --query 'deployments[0].state' --output text)
+            DEPLOYMENT_STATUS=$(aws lightsail get-container-images --service-name my-api --region eu-central-1 --query 'deployments[0].state' --output text)
             if [ "$DEPLOYMENT_STATUS" = "ACTIVE" ]; then
               echo "Deployment succeeded"
               exit 0
