@@ -1,6 +1,6 @@
 {
 	"my-app": {
-		"image": "inhousechef-api:latest",
+		"image": "inhousechef-api.latest",
 		"command": [],
 		"environment": {},
 		"ports": {
