@@ -1,5 +1,5 @@
 {
-    "containerName": "my-app",
+    "containerName": "inhousechef-backend",
     "containerPort": 8080,
     "healthCheck": {
       "healthyThreshold": 2,
