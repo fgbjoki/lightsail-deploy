@@ -24,7 +24,7 @@ jobs:
       - name: Create new Lightsail deployment
         id: create-deployment
         run: |
-          aws lightsail create-container-service-deployment --service-name inhousechef-api \
+          aws lightsail create-container-service-deployment --service-name my-api \
           --containers file://./Lightsait/containers.json
           --public-endpoint file://./Lightsait/public-endpoint.json
         env:
@@ -35,7 +35,7 @@ jobs:
       - name: Check deployment status
         run: |
           for i in {1..10}; do
-            DEPLOYMENT_STATUS=$(aws lightsail get-container-service-deployments --service-name inhousechef-api --query 'deployments[0].state' --output text)
+            DEPLOYMENT_STATUS=$(aws lightsail get-container-service-deployments --service-name my-api --query 'deployments[0].state' --output text)
             if [ "$DEPLOYMENT_STATUS" = "ACTIVE" ]; then
               echo "Deployment succeeded"
               exit 0
