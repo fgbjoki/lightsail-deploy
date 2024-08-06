@@ -26,7 +26,7 @@ app.MapGet("/weatherforecast", () =>
     return forecast;
 });
 
-app.MapGet("/test", () => new {Status = 200});
+app.MapGet("/test", () => new {Status = 200}); 
 
 app.Run();
 
