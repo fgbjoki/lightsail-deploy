@@ -65,6 +65,9 @@ jobs:
           aws --version
           sudo curl "https://s3.us-west-2.amazonaws.com/lightsailctl/latest/linux-amd64/lightsailctl" -o "/usr/local/bin/lightsailctl"
           sudo chmod +x /usr/local/bin/lightsailctl
+          sudo apt-get update
+          sudo apt-get install -y python3-pip
+          pip3 install awscli botocore
 
       - name: Create new Lightsail deployment
         id: create-deployment
