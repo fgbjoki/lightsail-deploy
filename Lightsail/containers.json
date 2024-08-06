@@ -1,5 +1,5 @@
 {
-	"inhousechef-api": {
+	"my-app": {
 		"image": "inhousechef-api.latest",
 		"command": [],
 		"environment": {},
