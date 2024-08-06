@@ -53,45 +53,45 @@ jobs:
     # needs: build
 
     steps:
-      - name: Test
+      - name: Checkout code
+        uses: actions/checkout@v2
+        
+      - name: Upgrade AWS CLI version and setup lightsailctl
         run: |
-          ls
-      # - name: Upgrade AWS CLI version and setup lightsailctl
-      #   run: |
-      #     curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-      #     unzip awscliv2.zip
-      #     sudo ./aws/install --bin-dir /usr/local/bin --install-dir /usr/local/aws-cli --update
-      #     which aws
-      #     aws --version
-      #     sudo curl "https://s3.us-west-2.amazonaws.com/lightsailctl/latest/linux-amd64/lightsailctl" -o "/usr/local/bin/lightsailctl"
-      #     sudo chmod +x /usr/local/bin/lightsailctl
+          curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+          unzip awscliv2.zip
+          sudo ./aws/install --bin-dir /usr/local/bin --install-dir /usr/local/aws-cli --update
+          which aws
+          aws --version
+          sudo curl "https://s3.us-west-2.amazonaws.com/lightsailctl/latest/linux-amd64/lightsailctl" -o "/usr/local/bin/lightsailctl"
+          sudo chmod +x /usr/local/bin/lightsailctl
 
-      # - name: Create new Lightsail deployment
-      #   id: create-deployment
-      #   run: |
-      #     aws lightsail create-container-service-deployment --service-name my-api \
-      #     --containers file://./Lightsail/containers.json
-      #     --public-endpoint file://./Lightsail/public-endpoint.json
-      #   env:
-      #     AWS_REGION: eu-central-1
-      #     AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      #     AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      - name: Create new Lightsail deployment
+        id: create-deployment
+        run: |
+          aws lightsail create-container-service-deployment --service-name my-api \
+          --containers file://./Lightsail/containers.json
+          --public-endpoint file://./Lightsail/public-endpoint.json
+        env:
+          AWS_REGION: eu-central-1
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
-      # - name: Check deployment status
-      #   run: |
-      #     for i in {1..10}; do
-      #       DEPLOYMENT_STATUS=$(aws lightsail get-container-service-deployments --service-name my-api --query 'deployments[0].state' --output text)
-      #       if [ "$DEPLOYMENT_STATUS" = "ACTIVE" ]; then
-      #         echo "Deployment succeeded"
-      #         exit 0
-      #       elif [ "$DEPLOYMENT_STATUS" = "FAILED" ]; then
-      #         echo "Deployment failed"
-      #         exit 1
-      #       else
-      #         echo "Deployment status: $DEPLOYMENT_STATUS"
-      #         sleep 10
-      #       fi
-      #     done
-      #     echo "Deployment timed out"
-      #     exit 1
+      - name: Check deployment status
+        run: |
+          for i in {1..10}; do
+            DEPLOYMENT_STATUS=$(aws lightsail get-container-service-deployments --service-name my-api --query 'deployments[0].state' --output text)
+            if [ "$DEPLOYMENT_STATUS" = "ACTIVE" ]; then
+              echo "Deployment succeeded"
+              exit 0
+            elif [ "$DEPLOYMENT_STATUS" = "FAILED" ]; then
+              echo "Deployment failed"
+              exit 1
+            else
+              echo "Deployment status: $DEPLOYMENT_STATUS"
+              sleep 10
+            fi
+          done
+          echo "Deployment timed out"
+          exit 1
         
