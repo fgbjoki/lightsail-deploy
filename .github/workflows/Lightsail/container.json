@@ -1,0 +1,10 @@
+{
+	"inhousechef-api": {
+		"image": "inhousechef-api.latest",
+		"command": [],
+		"environment": {},
+		"ports": {
+			"8080": "HTTP"
+		}
+	}
+}
