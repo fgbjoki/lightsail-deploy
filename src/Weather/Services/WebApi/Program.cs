@@ -1,6 +1,9 @@
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddHealthChecks();
 
 var app = builder.Build();
 
@@ -26,7 +29,7 @@ app.MapGet("/weatherforecast", () =>
     return forecast;
 });
 
-app.UseHealthChecks(new PathString("/"), 10000);
+app.MapHealthChecks("/health");
 
 app.Run();
 
