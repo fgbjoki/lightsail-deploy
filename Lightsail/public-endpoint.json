@@ -7,6 +7,6 @@
       "timeoutSeconds": 3,
       "intervalSeconds": 5,
       "path": "/",
-      "successCodes": "200-299"
+      "successCodes": "200-499"
     }
   }
