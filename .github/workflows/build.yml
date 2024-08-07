@@ -66,6 +66,9 @@ jobs:
           sudo curl "https://s3.us-west-2.amazonaws.com/lightsailctl/latest/linux-amd64/lightsailctl" -o "/usr/local/bin/lightsailctl"
           sudo chmod +x /usr/local/bin/lightsailctl
 
+      - name: Install jq
+        run: sudo apt-get install jq
+        
       - name: Create new Lightsail deployment
         id: create-deployment
         run: |
