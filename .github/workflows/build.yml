@@ -73,6 +73,7 @@ jobs:
         id: create-deployment
         run: |
           IMAGE_TAG=$(aws lightsail get-container-images --service my-api --region eu-central-1 | jq -r .containerImages[0].image)
+          echo "Deploying $IMAGE_TAG image..."
           aws lightsail create-container-service-deployment --service-name my-api \
            --containers "{
               \"inhousechef-backend\": {
@@ -80,7 +81,8 @@ jobs:
                 \"environment\": {
                 },
                 \"ports\": {
-                  \"8080\": \"HTTP\"
+                  \"8080\": \"HTTP\",
+                  \"10000\": \"HTTP\"
                 }
               }
             }" \
