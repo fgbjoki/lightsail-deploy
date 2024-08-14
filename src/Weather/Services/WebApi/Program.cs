@@ -29,6 +29,14 @@ app.MapGet("/weatherforecast", () =>
     return forecast;
 });
 
+app.MapGet("/secret",
+    (IConfiguration config) =>
+    {
+        var secret = config["SECRET"];
+
+        return Results.Text(secret);
+    });
+
 app.MapHealthChecks("/health");
 
 app.Run();

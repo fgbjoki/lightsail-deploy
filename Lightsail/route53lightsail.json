@@ -1,0 +1,17 @@
+{
+  "Comment": "This is Lightsail container",
+  "Changes": [
+    {
+      "Action": "CREATE",
+      "ResourceRecordSet": {
+        "Name": "api.kristalkettering.com",
+        "Type": "CNAME",
+        "AliasTarget": {
+          "HostedZoneId": "Z06137433FV04OY4EC6L0",
+          "DNSName": "my-api.hs3p106kc91k8.eu-central-1.cs.amazonlightsail.com",
+          "EvaluateTargetHealth": true
+        }
+      }
+    }
+  ]
+}
