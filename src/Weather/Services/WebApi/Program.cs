@@ -34,7 +34,7 @@ app.MapGet("/secret",
     {
         var secret = config["SECRET"];
 
-        return Results.Text(secret);
+        return Results.Text($"THIS IS NEW DEPLOYMENT WITH SECRET= {secret}");
     });
 
 app.MapHealthChecks("/health");
