@@ -36,13 +36,13 @@ jobs:
         id: build-image
         run: |
           docker build \
-          -t inhousechef-api:latest ./src/Weather -f ./src/Weather/Services/WebApi/Dockerfile
+          -t $IMAGE_NAME:latest ./src/Weather -f ./src/Weather/Services/WebApi/Dockerfile
 
       - name: Log in to DigitalOcean Container Registry with short-lived credentials
         run: doctl registry login --expiry-seconds 600
 
       - name: Push image to DigitalOcean Container Registry
-        run: docker push $(echo $REGISTRY)/$(echo $IMAGE_NAME):latest
+        run: docker push $REGISTRY/$IMAGE_NAME:latest
 
   # deploy:
   #   runs-on: ubuntu-latest
