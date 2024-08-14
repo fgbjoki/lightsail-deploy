@@ -38,7 +38,7 @@ jobs:
           echo {{ env.REGISTRY }}
           echo {{ env.IMAGE_NAME }}
           docker build \
-          -t {{ env.REGISTRY }}/{{ env.IMAGE_NAME }}:latest ./src/Weather -f ./src/Weather/Services/WebApi/Dockerfile --push
+          -t ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest ./src/Weather -f ./src/Weather/Services/WebApi/Dockerfile --push
 
       - name: Log in to DigitalOcean Container Registry with short-lived credentials
         run: doctl registry login --expiry-seconds 600
