@@ -1,4 +1,4 @@
-name: Build Docker Image on Lightsail
+name: Build Docker Image on Digital Ocean
 
 on:
   push:
@@ -36,7 +36,7 @@ jobs:
         id: build-image
         run: |
           docker build \
-          -t $(echo $REGISTRY)/$(echo $IMAGE_NAME):latest ./src/Weather -f ./src/Weather/Services/WebApi/Dockerfile --push
+          -t {{ env.REGISTRY }}/{{ env.IMAGE_NAME }}:latest ./src/Weather -f ./src/Weather/Services/WebApi/Dockerfile --push
 
       - name: Log in to DigitalOcean Container Registry with short-lived credentials
         run: doctl registry login --expiry-seconds 600
