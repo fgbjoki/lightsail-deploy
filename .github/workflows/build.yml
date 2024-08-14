@@ -36,16 +36,22 @@ jobs:
         with:
           token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
 
+      - name: Log in to DigitalOcean Container Registry with short-lived credentials
+        run: doctl registry login --expiry-seconds 600
+
       - name: Build docker image
         id: build-image
         run: |
           echo ${{ env.REGISTRY }}
           echo ${{ env.IMAGE_NAME }}
           docker build \
-          -t ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest ./src/Weather -f ./src/Weather/Services/WebApi/Dockerfile --push
+          -t ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest ./src/Weather -f ./src/Weather/Services/WebApi/Dockerfile
 
-      - name: Log in to DigitalOcean Container Registry with short-lived credentials
-        run: doctl registry login --expiry-seconds 600
+      - name: Push docker image to Digital Ocean Registry
+        run: |
+          docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+
+
 
 
   # deploy:
