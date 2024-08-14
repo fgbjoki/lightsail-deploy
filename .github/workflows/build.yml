@@ -5,6 +5,10 @@ on:
     branches:
       - main
 
+env:
+  REGISTRY: registry.digitalocean.com/weatherapi
+  IMAGE_NAME: inhousechef-webapi
+
 jobs:
   build:
     runs-on: ubuntu-latest
