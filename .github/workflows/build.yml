@@ -27,7 +27,6 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
 
-
       - name: Install doctl 
         uses: digitalocean/action-doctl@v2
         with:
@@ -36,13 +35,9 @@ jobs:
       - name: Build docker image
         id: build-image
         run: |
-          IMAGE_TAG=latest
           docker build \
           --build-arg SECRET = {{ secrets.SECRET }} \
-          -t inhousechef-api:$IMAGE_TAG ./src/Weather -f ./src/Weather/Services/WebApi/Dockerfile \
-
-      - name: Build container image
-        run: docker build -t $(echo $REGISTRY)/$(echo $IMAGE_NAME):latest ./src/Weather -f ./src/Weather/Services/WebApi/Dockerfile
+          -t inhousechef-api:latest ./src/Weather -f ./src/Weather/Services/WebApi/Dockerfile
 
       - name: Log in to DigitalOcean Container Registry with short-lived credentials
         run: doctl registry login --expiry-seconds 600
