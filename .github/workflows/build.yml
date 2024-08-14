@@ -35,8 +35,8 @@ jobs:
       - name: Build docker image
         id: build-image
         run: |
-          echo {{ env.REGISTRY }}
-          echo {{ env.IMAGE_NAME }}
+          echo ${{ env.REGISTRY }}
+          echo ${{ env.IMAGE_NAME }}
           docker build \
           -t ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest ./src/Weather -f ./src/Weather/Services/WebApi/Dockerfile --push
 
